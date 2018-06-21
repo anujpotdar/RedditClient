@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.anuj.potdar.redditclient.databinding.ItemFeedBinding;
 import com.anuj.potdar.redditclient.model.Child;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -64,14 +66,40 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             binding.comment.setText(String.valueOf(child.getData().getNumComments()));
             binding.score.setText(String.valueOf(child.getData().getScore()));
 
-//            if(child.getData().getPostHint().equalsIgnoreCase("image")){
+            if(child.getData().getPostHint()!=null){
+                if(child.getData().getPostHint().equalsIgnoreCase("image")) {
 
-                    Picasso.get()
-                            .load(child.getData().getUrl())
-                            .centerCrop()
-                            .error(R.drawable.ic_launcher_background)
-                            .fit()
-                            .into(binding.contentImage);
+                    binding.contentImage.setVisibility(View.VISIBLE);
+                    binding.selfText.setVisibility(View.GONE);
+
+                    RequestOptions options = new RequestOptions()
+    //                    .centerCrop()
+    //                    .fitCenter()
+                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                            .dontTransform()
+                            .placeholder(R.mipmap.ic_launcher_round)
+                            .error(R.mipmap.ic_launcher_round);
+
+                    Glide.with(context).load(child.getData().getUrl()).apply(options).into(binding.contentImage);
+                }else if(child.getData().getIsSelf()){
+                    binding.selfText.setVisibility(View.VISIBLE);
+                    binding.selfText.setText(child.getData().getSelftext());
+                    binding.contentImage.setVisibility(View.GONE);
+                }else{
+                    binding.contentImage.setVisibility(View.GONE);
+                    binding.selfText.setVisibility(View.GONE);
+                }
+            }else{
+                if(child.getData().getIsSelf()) {
+                    binding.selfText.setVisibility(View.VISIBLE);
+                    binding.selfText.setText(child.getData().getSelftext());
+                    binding.contentImage.setVisibility(View.GONE);
+                }
+                binding.contentImage.setVisibility(View.GONE);
+            }
+
+
+
 
 //            }
         }

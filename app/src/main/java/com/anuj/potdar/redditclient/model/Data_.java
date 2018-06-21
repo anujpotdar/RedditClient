@@ -121,9 +121,13 @@ public class Data_ {
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
+
     @SerializedName("edited")
-    @Expose
-    private Boolean edited;
+    private Boolean editedBool;
+
+    @SerializedName("edited")
+    private Integer editedInt;
+
     @SerializedName("author_flair_css_class")
     @Expose
     private Object authorFlairCssClass;
@@ -591,12 +595,12 @@ public class Data_ {
         this.thumbnail = thumbnail;
     }
 
-    public Boolean getEdited() {
-        return edited;
+    public Boolean getEditedBool() {
+        return editedBool;
     }
 
     public void setEdited(Boolean edited) {
-        this.edited = edited;
+        this.editedBool = edited;
     }
 
     public Object getAuthorFlairCssClass() {
@@ -1017,6 +1021,14 @@ public class Data_ {
 
     public String getLinkFlairTemplateId() {
         return linkFlairTemplateId;
+    }
+
+    public Integer getEditedInt() {
+        return editedInt;
+    }
+
+    public void setEdited(Integer edited) {
+        this.editedInt = edited;
     }
 
     public void setLinkFlairTemplateId(String linkFlairTemplateId) {

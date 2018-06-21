@@ -64,19 +64,39 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/contentImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:id="@+id/contentRelativeLayout"
             android:layout_below="@+id/feedTitle"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/contentImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/selfText"
+                android:visibility="gone"
+                android:textSize="13sp"
+                android:layout_margin="8dp"/>
+
+        </RelativeLayout>
+
+
+
+
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contentImage"
+            android:layout_below="@+id/contentRelativeLayout"
             android:layout_marginBottom="10dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
@@ -90,21 +110,24 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/arrow_up_float" />
+                    android:src="@drawable/arrow_up"
+                    />
 
                 <TextView
                     android:id="@+id/score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="15.5K"
+                    android:textColor="#000000"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:textSize="12sp" />
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/arrow_down_float" />
+                    android:src="@drawable/arrow_down"
+                    />
 
             </LinearLayout>
 
@@ -117,15 +140,16 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/arrow_down_float" />
+                    android:src="@drawable/ic_comment" />
 
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:id="@+id/comment"
+                    android:textColor="#000000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="225"
-                    android:textSize="12sp" />
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
