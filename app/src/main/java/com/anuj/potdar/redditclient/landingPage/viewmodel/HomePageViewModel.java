@@ -52,6 +52,7 @@ public class HomePageViewModel {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if(!query.trim().equals("") && query!=null){
+                    binding.swipeToRefresh.setRefreshing(true);
                     downloadUserEnteredFeed(query);
                 }
                 return false;
@@ -77,6 +78,7 @@ public class HomePageViewModel {
                         ArrayList<Child> children = (ArrayList<Child>)feed.getData().getChildren();
                         feedAdapter = new FeedAdapter(children,context);
                         binding.feedList.setAdapter(feedAdapter);
+                        binding.swipeToRefresh.setRefreshing(false);
                     }
 
                 }
@@ -84,7 +86,7 @@ public class HomePageViewModel {
 
             @Override
             public void onFailure(Call<Feed> call, Throwable t) {
-
+                binding.swipeToRefresh.setRefreshing(false);
             }
         });
     }

@@ -54,7 +54,6 @@ public class HomePageFragment extends Fragment {
     }
 
 
-
     public FragmentHomePageBinding getBinding() {
         return binding;
     }

@@ -1,6 +1,7 @@
 package com.anuj.potdar.redditclient;
 
 import android.databinding.DataBindingUtil;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -19,6 +20,12 @@ public class MainActivity extends AppCompatActivity {
         navigateToHomePage();
 
         setContentView(binding.getRoot());
+    }
+
+    @Override
+    public void onBackPressed() {
+//        AlertDialog alertDialog = new AlertDialog(this,true,new CancelLis)
+        super.onBackPressed();
     }
 
     private void navigateToHomePage() {

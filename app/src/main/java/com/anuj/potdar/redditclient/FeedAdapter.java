@@ -1,6 +1,7 @@
 package com.anuj.potdar.redditclient;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.anuj.potdar.redditclient.databinding.ItemFeedBinding;
 import com.anuj.potdar.redditclient.model.Child;
+import com.anuj.potdar.redditclient.viewImage.ImageActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -33,7 +35,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
     @Override
     public FeedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View view = inflater.inflate(R.layout.item_feed, parent, false);
         ItemFeedBinding itemFeedBinding = ItemFeedBinding.inflate(inflater,parent,false);
         return new FeedViewHolder(itemFeedBinding);
     }
@@ -66,6 +67,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             binding.comment.setText(String.valueOf(child.getData().getNumComments()));
             binding.score.setText(String.valueOf(child.getData().getScore()));
 
+            setContent(child);
+        }
+
+        private void setContent(final Child child) {
             if(child.getData().getPostHint()!=null){
                 if(child.getData().getPostHint().equalsIgnoreCase("image")) {
 
@@ -73,14 +78,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                     binding.selfText.setVisibility(View.GONE);
 
                     RequestOptions options = new RequestOptions()
-    //                    .centerCrop()
-    //                    .fitCenter()
-                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                            .centerCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.DATA)
                             .dontTransform()
-                            .placeholder(R.mipmap.ic_launcher_round)
-                            .error(R.mipmap.ic_launcher_round);
+                            .placeholder(R.drawable.imageloading)
+                            .error(R.drawable.imageloading);
 
                     Glide.with(context).load(child.getData().getUrl()).apply(options).into(binding.contentImage);
+
+                    binding.contentImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent myIntent = new Intent(context, ImageActivity.class).putExtra("imageUrl", child.getData().getUrl());
+                            context.startActivity(myIntent);
+                        }
+                    });
+
                 }else if(child.getData().getIsSelf()){
                     binding.selfText.setVisibility(View.VISIBLE);
                     binding.selfText.setText(child.getData().getSelftext());
@@ -90,18 +103,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                     binding.selfText.setVisibility(View.GONE);
                 }
             }else{
-                if(child.getData().getIsSelf()) {
-                    binding.selfText.setVisibility(View.VISIBLE);
-                    binding.selfText.setText(child.getData().getSelftext());
+                if(child.getData().getIsSelf()!=null){
+                    if(child.getData().getIsSelf()) {
+                        binding.selfText.setVisibility(View.VISIBLE);
+                        binding.selfText.setText(child.getData().getSelftext());
+                        binding.contentImage.setVisibility(View.GONE);
+                    }
                     binding.contentImage.setVisibility(View.GONE);
                 }
-                binding.contentImage.setVisibility(View.GONE);
             }
-
-
-
-
-//            }
         }
     }
 
