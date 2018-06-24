@@ -4,7 +4,9 @@ package com.anuj.potdar.redditclient.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MediaEmbed {
+import java.io.Serializable;
+
+public class MediaEmbed implements Serializable{
 
     @SerializedName("content")
     @Expose

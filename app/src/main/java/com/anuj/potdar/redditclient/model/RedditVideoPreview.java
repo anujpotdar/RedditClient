@@ -4,7 +4,9 @@ package com.anuj.potdar.redditclient.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RedditVideoPreview {
+import java.io.Serializable;
+
+public class RedditVideoPreview  implements Serializable {
 
     @SerializedName("fallback_url")
     @Expose

@@ -4,7 +4,9 @@ package com.anuj.potdar.redditclient.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Oembed {
+import java.io.Serializable;
+
+public class Oembed implements Serializable {
 
     @SerializedName("provider_url")
     @Expose

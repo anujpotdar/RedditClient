@@ -4,7 +4,9 @@ package com.anuj.potdar.redditclient.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Child {
+import java.io.Serializable;
+
+public class Child implements Serializable {
 
     @SerializedName("kind")
     @Expose

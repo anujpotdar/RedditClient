@@ -4,7 +4,9 @@ package com.anuj.potdar.redditclient.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Source__ {
+import java.io.Serializable;
+
+public class Source__ implements Serializable {
 
     @SerializedName("url")
     @Expose

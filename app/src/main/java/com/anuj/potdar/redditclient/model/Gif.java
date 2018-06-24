@@ -1,11 +1,12 @@
 
 package com.anuj.potdar.redditclient.model;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Gif {
+public class Gif implements Serializable{
 
     @SerializedName("source")
     @Expose

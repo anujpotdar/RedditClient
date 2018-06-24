@@ -1,11 +1,12 @@
 
 package com.anuj.potdar.redditclient.model;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Image {
+public class Image implements Serializable{
 
     @SerializedName("source")
     @Expose

@@ -31,6 +31,8 @@ public class HomePageViewModel {
     private Context context;
     private APIInterface apiInterface;
     private FeedAdapter feedAdapter;
+    String lastSearchedUrl;
+    boolean hasSearched = false;
 
     public HomePageViewModel(HomePageFragment fragment) {
         this.fragment = fragment;
@@ -45,28 +47,46 @@ public class HomePageViewModel {
         downloadFeed();
         setupSearchView();
         setupSwipeToRefresh();
+        setupRetryButton();
     }
 
-    private void setupSearchView() {
-        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+    private void setupRetryButton() {
+        binding.retry.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                if(!query.trim().equals("") && query!=null){
-                    binding.swipeToRefresh.setRefreshing(true);
-                    downloadUserEnteredFeed(query);
-                }
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+            public void onClick(View view) {
+                selectRefreshList();
+                binding.progressBar.setVisibility(View.VISIBLE);
             }
         });
     }
 
-    private void downloadUserEnteredFeed(String url) {
-        Call<Feed> feedCall = apiInterface.getUserEnteredFeed(url);
+    private void selectRefreshList(){
+        if (hasSearched){
+            downloadUserEnteredFeed(lastSearchedUrl);
+        }else {
+            downloadFeed();
+        }
+    }
+
+    private void setupSearchView() {
+
+        binding.searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String query = binding.searchText.getText().toString();
+                if(query!=null){
+                    if(!query.trim().equals("")){
+                        binding.swipeToRefresh.setRefreshing(true);
+                        downloadUserEnteredFeed(query);
+                    }
+                }
+            }
+        });
+
+    }
+
+    private void downloadUserEnteredFeed(final String url) {
+        Call<Feed> feedCall = apiInterface.getUserEnteredFeed("r/"+url);
         feedCall.enqueue(new Callback<Feed>() {
             @Override
             public void onResponse(Call<Feed> call, Response<Feed> response) {
@@ -74,6 +94,8 @@ public class HomePageViewModel {
                     if(response.body()!=null){
                         binding.progressBar.setVisibility(View.GONE);
                         binding.swipeToRefresh.setRefreshing(false);
+                        hasSearched = true;
+                        lastSearchedUrl = url;
                         Feed feed = response.body();
                         ArrayList<Child> children = (ArrayList<Child>)feed.getData().getChildren();
                         feedAdapter = new FeedAdapter(children,context);
@@ -86,6 +108,10 @@ public class HomePageViewModel {
 
             @Override
             public void onFailure(Call<Feed> call, Throwable t) {
+                hasSearched = true;
+                lastSearchedUrl = url;
+                binding.progressBar.setVisibility(View.GONE);
+                binding.errorView.setVisibility(View.VISIBLE);
                 binding.swipeToRefresh.setRefreshing(false);
             }
         });
@@ -96,7 +122,7 @@ public class HomePageViewModel {
         binding.swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                downloadFeed();
+                selectRefreshList();
             }
         });
     }
@@ -107,6 +133,7 @@ public class HomePageViewModel {
     }
 
     private void downloadFeed() {
+        binding.errorView.setVisibility(View.GONE);
         Call<Feed> feedCall = apiInterface.getHomePageFeed();
         feedCall.enqueue(new Callback<Feed>() {
             @Override
@@ -114,6 +141,7 @@ public class HomePageViewModel {
                 if(response!=null){
                     binding.progressBar.setVisibility(View.GONE);
                     binding.swipeToRefresh.setRefreshing(false);
+                    hasSearched = false;
                     Feed feed = response.body();
                     ArrayList<Child> children = (ArrayList<Child>)feed.getData().getChildren();
                     feedAdapter = new FeedAdapter(children,context);
@@ -123,6 +151,9 @@ public class HomePageViewModel {
 
             @Override
             public void onFailure(Call<Feed> call, Throwable t) {
+                    binding.errorView.setVisibility(View.VISIBLE);
+                    hasSearched = false;
+                binding.progressBar.setVisibility(View.GONE);
                     binding.swipeToRefresh.setRefreshing(false);
             }
         });

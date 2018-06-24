@@ -1,11 +1,12 @@
 
 package com.anuj.potdar.redditclient.model;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data_ {
+public class Data_ implements Serializable {
 
     @SerializedName("approved_at_utc")
     @Expose
@@ -290,6 +291,39 @@ public class Data_ {
     @SerializedName("link_flair_background_color")
     @Expose
     private String linkFlairBackgroundColor;
+
+    @SerializedName("body")
+    private String body;
+
+    @SerializedName("replies")
+    private Child replies;
+
+    @SerializedName("children")
+    private List<Child> children;
+
+    public List<Child> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Child> children) {
+        this.children = children;
+    }
+
+    public Child getReplies() {
+        return replies;
+    }
+
+    public void setReplies(Child replies) {
+        this.replies = replies;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
 
     public Object getApprovedAtUtc() {
         return approvedAtUtc;

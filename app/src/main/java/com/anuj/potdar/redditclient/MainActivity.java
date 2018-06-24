@@ -1,27 +1,53 @@
 package com.anuj.potdar.redditclient;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
-import android.support.v4.app.Fragment;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.anuj.potdar.redditclient.databinding.ActivityMainBinding;
 import com.anuj.potdar.redditclient.landingPage.fragment.HomePageFragment;
+import com.anuj.potdar.redditclient.login.fragment.LoginFragment;
 
-public class MainActivity extends AppCompatActivity {
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+public class MainActivity extends AppCompatActivity implements MainNavigation {
 
     ActivityMainBinding binding;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        navigateToHomePage();
+//        navigateToLogin();
+
+        navigateToSplash();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                navigateToHomePage();
+            }
+        }, 3000);
+
 
         setContentView(binding.getRoot());
+    }
+
+    private void navigateToSplash() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(binding.parentFrameLayout.getId(), SplashFragment.newInstance())
+                .commit();
     }
 
     @Override
@@ -58,9 +84,15 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void navigateToHomePage() {
+    public void navigateToHomePage() {
         getSupportFragmentManager().beginTransaction()
                 .replace(binding.parentFrameLayout.getId(), HomePageFragment.newInstance())
+                .commit();
+    }
+
+    public void navigateToLogin() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(binding.parentFrameLayout.getId(), LoginFragment.newInstance())
                 .commit();
     }
 }
