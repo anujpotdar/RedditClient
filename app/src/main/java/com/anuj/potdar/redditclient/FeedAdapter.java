@@ -101,7 +101,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                 }else if(child.getData().getPostHint().equalsIgnoreCase("rich:video")){
                     binding.contentImage.setVisibility(View.GONE);
                     binding.selfText.setVisibility(View.GONE);
-                    binding.webPage.setVisibility(View.VISIBLE);
+                    binding.webPage.setVisibility(View.GONE);
                     setupWebContent(child);
                 }
                 else{
@@ -129,9 +129,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         private void setupWebContent(final Child child){
 
             RequestOptions options = new RequestOptions()
-                    .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.DATA)
-                    .dontTransform()
+                    .fitCenter()
                     .placeholder(R.drawable.imageloading)
                     .error(R.drawable.imageloading);
 
@@ -168,6 +167,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         private void setupImage(final Child child) {
             binding.contentImage.setVisibility(View.VISIBLE);
             binding.selfText.setVisibility(View.GONE);
+
+            binding.contentImage.setAdjustViewBounds(true);
 
             RequestOptions options = new RequestOptions()
 //                    .centerCrop()

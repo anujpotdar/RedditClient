@@ -79,7 +79,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             }else {
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.MATCH_PARENT,
-                        1
+                        convertdpToPx(1)
                 );
                 binding.mainCard.setCardBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
                 binding.mainCard.setLayoutParams(params);

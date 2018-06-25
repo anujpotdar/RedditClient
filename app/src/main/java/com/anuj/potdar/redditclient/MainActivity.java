@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements MainNavigation {
     @Override
     public void onBackPressed() {
         showExitDialog();
-//        super.onBackPressed();
     }
 
     private void showExitDialog() {

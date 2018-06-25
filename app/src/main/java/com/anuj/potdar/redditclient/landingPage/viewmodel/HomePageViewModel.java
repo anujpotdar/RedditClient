@@ -3,10 +3,12 @@ package com.anuj.potdar.redditclient.landingPage.viewmodel;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.anuj.potdar.redditclient.APIInterface;
@@ -23,6 +25,8 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * Created by potda on 6/20/2018.
@@ -90,6 +94,8 @@ public class HomePageViewModel {
                 if(query!=null){
                     if(!query.trim().equals("")){
                         binding.swipeToRefresh.setRefreshing(true);
+                        binding.searchText.clearFocus();
+                        hideSoftKeyboard();
                         downloadUserEnteredFeed(query);
                     }
                 }
@@ -120,6 +126,13 @@ public class HomePageViewModel {
             }
         });
 
+    }
+
+    public void hideSoftKeyboard() {
+        if(fragment.getActivity().getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager)fragment.getActivity().getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(fragment.getActivity().getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
     private void downloadUserEnteredFeed(final String url) {
@@ -178,8 +191,28 @@ public class HomePageViewModel {
     }
 
     private void setupRecyclerList(){
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
         binding.feedList.setLayoutManager(linearLayoutManager);
+
+        binding.feedList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int visibility = (linearLayoutManager.findFirstCompletelyVisibleItemPosition() > 8) ? View.VISIBLE : View.GONE;
+                binding.scrollToTop.setVisibility(visibility);
+            }
+        });
+
+        binding.scrollToTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.feedList.smoothScrollToPosition(0);
+            }
+        });
     }
 
     private void downloadFeed() {

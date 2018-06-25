@@ -37,6 +37,8 @@ public class HomePageFragment extends Fragment {
         // Required empty public constructor
     }
 
+
+
     public static HomePageFragment newInstance(ArrayList<Child> children){
         Bundle args = new Bundle();
         args.putSerializable(ARG_CHILDREN, children);
