@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.anuj.potdar.redditclient.APIInterface;
 import com.anuj.potdar.redditclient.FeedAdapter;
+import com.anuj.potdar.redditclient.R;
 import com.anuj.potdar.redditclient.ServiceGenerator;
 import com.anuj.potdar.redditclient.databinding.FragmentHomePageBinding;
 import com.anuj.potdar.redditclient.landingPage.fragment.HomePageFragment;
@@ -31,23 +32,32 @@ public class HomePageViewModel {
     private Context context;
     private APIInterface apiInterface;
     private FeedAdapter feedAdapter;
+    ArrayList<Child> childrenGlobal;
     String lastSearchedUrl;
     boolean hasSearched = false;
 
-    public HomePageViewModel(HomePageFragment fragment) {
+    public HomePageViewModel(HomePageFragment fragment, ArrayList<Child> children) {
         this.fragment = fragment;
         this.context = fragment.getContext();
         this.binding = fragment.getBinding();
+        this.childrenGlobal = children;
         init();
     }
 
     private void init(){
         apiInterface = ServiceGenerator.createService(APIInterface.class,context);
         setupRecyclerList();
-        downloadFeed();
+//        downloadFeed();
         setupSearchView();
         setupSwipeToRefresh();
         setupRetryButton();
+        displayHomeFeed();
+    }
+
+    private void displayHomeFeed() {
+        binding.progressBar.setVisibility(View.GONE);
+        feedAdapter = new FeedAdapter(childrenGlobal,context);
+        binding.feedList.setAdapter(feedAdapter);
     }
 
     private void setupRetryButton() {
@@ -101,6 +111,7 @@ public class HomePageViewModel {
                         feedAdapter = new FeedAdapter(children,context);
                         binding.feedList.setAdapter(feedAdapter);
                         binding.swipeToRefresh.setRefreshing(false);
+                        binding.feedList.setVisibility(View.VISIBLE);
                     }
 
                 }
@@ -113,12 +124,13 @@ public class HomePageViewModel {
                 binding.progressBar.setVisibility(View.GONE);
                 binding.errorView.setVisibility(View.VISIBLE);
                 binding.swipeToRefresh.setRefreshing(false);
+                binding.feedList.setVisibility(View.GONE);
             }
         });
     }
 
     private void setupSwipeToRefresh() {
-
+        binding.swipeToRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -146,15 +158,17 @@ public class HomePageViewModel {
                     ArrayList<Child> children = (ArrayList<Child>)feed.getData().getChildren();
                     feedAdapter = new FeedAdapter(children,context);
                     binding.feedList.setAdapter(feedAdapter);
+                    binding.feedList.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<Feed> call, Throwable t) {
-                    binding.errorView.setVisibility(View.VISIBLE);
-                    hasSearched = false;
+                binding.errorView.setVisibility(View.VISIBLE);
+                hasSearched = false;
                 binding.progressBar.setVisibility(View.GONE);
-                    binding.swipeToRefresh.setRefreshing(false);
+                binding.swipeToRefresh.setRefreshing(false);
+                binding.feedList.setVisibility(View.GONE);
             }
         });
     }

@@ -91,11 +91,14 @@ public class CommentsActivity extends AppCompatActivity {
     }
 
     private void setupSwipeToRefresh() {
+
+        binding.swipeToRefresh.setColorSchemeResources(R.color.colorPrimary);
+
         binding.swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getComments();
-                binding.progressBar.setVisibility(View.VISIBLE);
+                binding.progressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -128,15 +131,21 @@ public class CommentsActivity extends AppCompatActivity {
         ItemClickSupport.addTo(binding.recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
-                handleToggle(position);
+                if(comments.get(position).contract){
+                    contract(position,false);
+                    comments.get(position).contract = !comments.get(position).contract;
+                }else{
+                    contract(position,true);
+                    comments.get(position).contract = !comments.get(position).contract;
+                }
             }
         });
     }
 
-    private void handleToggle(int position){
+    private void contract(int position,Boolean expand){
         for (int i=position+1;i<comments.size();i++){
             if (comments.get(i).level>comments.get(position).level){
-                comments.get(i).visible = !comments.get(i).visible;
+                comments.get(i).visible = expand;
                 adapter.notifyItemChanged(i);
             }else {
 //                adapter.notifyDataSetChanged();
@@ -276,6 +285,7 @@ public class CommentsActivity extends AppCompatActivity {
                         binding.progressBar.setVisibility(View.GONE);
                         binding.swipeToRefresh.setRefreshing(false);
                         binding.errorView.setVisibility(View.GONE);
+                        binding.recyclerView.setVisibility(View.VISIBLE);
                         comments = handleComments(response);
                         adapter = new CommentsAdapter(comments,context);
                         binding.recyclerView.setAdapter(adapter);
@@ -288,6 +298,7 @@ public class CommentsActivity extends AppCompatActivity {
                 binding.progressBar.setVisibility(View.GONE);
                         binding.swipeToRefresh.setRefreshing(false);
                         binding.errorView.setVisibility(View.VISIBLE);
+                        binding.recyclerView.setVisibility(View.GONE);
             }
         });
     }

@@ -30,13 +30,17 @@ import retrofit2.Response;
 public class HomePageFragment extends Fragment {
 
     private FragmentHomePageBinding binding;
+    private static final String ARG_CHILDREN = "childrenList";
+    private ArrayList<Child> children;
 
     public HomePageFragment() {
         // Required empty public constructor
     }
 
-    public static HomePageFragment newInstance(){
+    public static HomePageFragment newInstance(ArrayList<Child> children){
         Bundle args = new Bundle();
+        args.putSerializable(ARG_CHILDREN, children);
+
         HomePageFragment fragment = new HomePageFragment();
         fragment.setArguments(args);
         return fragment;
@@ -47,8 +51,11 @@ public class HomePageFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home_page,container,false);
-
-        HomePageViewModel viewModel = new HomePageViewModel(this);
+        Bundle args = getArguments();
+        if (args != null) {
+            children = (ArrayList<Child>) args.getSerializable(ARG_CHILDREN);
+        }
+        HomePageViewModel viewModel = new HomePageViewModel(this,children);
 
         return binding.getRoot();
     }

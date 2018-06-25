@@ -60,7 +60,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@id/author"
                 android:text="username"
-                android:textColor="#3d3d3d"
+                android:textColor="@color/subtext"
                 android:textSize="10sp"
                 android:visibility="gone" />
 
@@ -110,6 +110,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:tint="@color/subtext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/arrow_up" />
@@ -119,7 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:textColor="#000000"
+                        android:textColor="@color/subtext"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -131,6 +132,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:tint="@color/subtext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
@@ -144,7 +146,7 @@
                         android:layout_below="@+id/feedTitle"
                         android:layout_marginEnd="11dp"
                         android:layout_marginRight="11dp"
-                        android:textColor="#000000"
+                        android:textColor="@color/subtext"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -172,18 +174,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cardView" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginRight="32dp"
-        android:clickable="true"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/ic_comment" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeToRefresh"

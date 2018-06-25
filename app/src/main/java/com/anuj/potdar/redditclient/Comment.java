@@ -11,4 +11,5 @@ public class Comment {
     String postedOn;
     int level;
     boolean visible = true;
+    boolean contract = true;
 }

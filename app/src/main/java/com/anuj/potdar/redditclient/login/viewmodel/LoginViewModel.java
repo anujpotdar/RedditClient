@@ -50,7 +50,7 @@ public class LoginViewModel {
         binding.loginLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainNavigation.navigateToHomePage();
+                mainNavigation.navigateToHomePage(null);
             }
         });
 
@@ -111,7 +111,7 @@ public class LoginViewModel {
                                 binding.user.setText("");
                                 binding.password.setText("");
 
-                                mainNavigation.navigateToHomePage();
+                                mainNavigation.navigateToHomePage(null);
                             }
                         }
                     }else{

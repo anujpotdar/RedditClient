@@ -159,6 +159,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:tint="@color/subtext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/arrow_up"
@@ -169,7 +170,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="15.5K"
-                    android:textColor="#000000"
+                    android:textColor="@color/subtext"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:textSize="15sp" />
@@ -184,6 +185,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:tint="@color/subtext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_comment" />
@@ -191,7 +193,7 @@
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:id="@+id/comment"
-                    android:textColor="#000000"
+                    android:textColor="@color/subtext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="225"
