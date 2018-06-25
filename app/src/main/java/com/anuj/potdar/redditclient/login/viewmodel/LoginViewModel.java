@@ -4,15 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 
 import com.anuj.potdar.redditclient.APIInterface;
-import com.anuj.potdar.redditclient.MainNavigation;
+import com.anuj.potdar.redditclient.landingPage.MainNavigation;
 import com.anuj.potdar.redditclient.databinding.FragmentLoginBinding;
 import com.anuj.potdar.redditclient.login.fragment.LoginFragment;
 import com.anuj.potdar.redditclient.login.model.CheckLogin;
-import com.anuj.potdar.redditclient.model.Feed;
 
 import java.util.HashMap;
 

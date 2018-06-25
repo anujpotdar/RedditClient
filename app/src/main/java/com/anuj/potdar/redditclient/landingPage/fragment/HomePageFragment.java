@@ -4,25 +4,16 @@ package com.anuj.potdar.redditclient.landingPage.fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.anuj.potdar.redditclient.APIInterface;
-import com.anuj.potdar.redditclient.FeedAdapter;
 import com.anuj.potdar.redditclient.R;
-import com.anuj.potdar.redditclient.ServiceGenerator;
 import com.anuj.potdar.redditclient.databinding.FragmentHomePageBinding;
 import com.anuj.potdar.redditclient.landingPage.viewmodel.HomePageViewModel;
 import com.anuj.potdar.redditclient.model.Child;
-import com.anuj.potdar.redditclient.model.Feed;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.

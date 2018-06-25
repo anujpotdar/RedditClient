@@ -1,20 +1,23 @@
-package com.anuj.potdar.redditclient;
+package com.anuj.potdar.redditclient.landingPage;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.anuj.potdar.redditclient.APIInterface;
+import com.anuj.potdar.redditclient.R;
+import com.anuj.potdar.redditclient.ServiceGenerator;
 import com.anuj.potdar.redditclient.databinding.ActivityMainBinding;
 import com.anuj.potdar.redditclient.landingPage.fragment.HomePageFragment;
 import com.anuj.potdar.redditclient.login.fragment.LoginFragment;
 import com.anuj.potdar.redditclient.model.Child;
 import com.anuj.potdar.redditclient.model.Feed;
+import com.anuj.potdar.redditclient.splashPage.SplashFragment;
 
 import java.util.ArrayList;
 

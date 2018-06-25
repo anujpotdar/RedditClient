@@ -1,4 +1,4 @@
-package com.anuj.potdar.redditclient;
+package com.anuj.potdar.redditclient.commentsPage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import com.anuj.potdar.redditclient.APIInterface;
+import com.anuj.potdar.redditclient.R;
 import com.anuj.potdar.redditclient.databinding.ActivityCommentsBinding;
 import com.anuj.potdar.redditclient.model.Child;
+import com.anuj.potdar.redditclient.utils.ItemClickSupport;
 import com.anuj.potdar.redditclient.viewImage.ContentActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -86,6 +90,8 @@ public class CommentsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getComments();
+                binding.errorView.setVisibility(View.GONE);
+                binding.progressBar.setVisibility(View.VISIBLE);
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.anuj.potdar.redditclient;
+package com.anuj.potdar.redditclient.landingPage;
 
 import com.anuj.potdar.redditclient.model.Child;
 

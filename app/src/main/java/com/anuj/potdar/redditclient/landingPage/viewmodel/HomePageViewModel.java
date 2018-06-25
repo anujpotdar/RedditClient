@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -12,7 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.anuj.potdar.redditclient.APIInterface;
-import com.anuj.potdar.redditclient.FeedAdapter;
+import com.anuj.potdar.redditclient.landingPage.FeedAdapter;
 import com.anuj.potdar.redditclient.R;
 import com.anuj.potdar.redditclient.ServiceGenerator;
 import com.anuj.potdar.redditclient.databinding.FragmentHomePageBinding;

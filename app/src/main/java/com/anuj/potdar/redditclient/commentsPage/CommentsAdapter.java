@@ -1,14 +1,14 @@
-package com.anuj.potdar.redditclient;
+package com.anuj.potdar.redditclient.commentsPage;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.anuj.potdar.redditclient.R;
 import com.anuj.potdar.redditclient.databinding.ItemCommentBinding;
 
 import java.util.ArrayList;

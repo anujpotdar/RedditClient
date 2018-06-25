@@ -1,4 +1,4 @@
-package com.anuj.potdar.redditclient;
+package com.anuj.potdar.redditclient.landingPage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.anuj.potdar.redditclient.R;
+import com.anuj.potdar.redditclient.commentsPage.CommentsActivity;
 import com.anuj.potdar.redditclient.databinding.ItemFeedBinding;
 import com.anuj.potdar.redditclient.model.Child;
 import com.anuj.potdar.redditclient.viewImage.ContentActivity;

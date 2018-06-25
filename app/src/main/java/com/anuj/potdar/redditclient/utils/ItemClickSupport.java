@@ -1,4 +1,4 @@
-package com.anuj.potdar.redditclient;
+package com.anuj.potdar.redditclient.utils;
 
 /**
  * Created by potda on 6/24/2018.
@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+
+import com.anuj.potdar.redditclient.R;
 
 /**
  * A class that adds item click support to a {@link RecyclerView}.

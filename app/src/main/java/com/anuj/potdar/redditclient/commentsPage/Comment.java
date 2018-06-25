@@ -1,4 +1,4 @@
-package com.anuj.potdar.redditclient;
+package com.anuj.potdar.redditclient.commentsPage;
 
 /**
  * Created by potda on 6/24/2018.

@@ -12,7 +12,7 @@
         android:roundIcon="@drawable/reddit"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".landingPage.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".viewImage.ContentActivity" />
-        <activity android:name=".CommentsActivity"></activity>
+        <activity android:name=".commentsPage.CommentsActivity"></activity>
     </application>
 
 </manifest>
