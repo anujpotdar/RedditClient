@@ -170,7 +170,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             binding.selfText.setVisibility(View.GONE);
 
             RequestOptions options = new RequestOptions()
-                    .centerCrop()
+//                    .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.DATA)
                     .dontTransform()
                     .placeholder(R.drawable.imageloading)

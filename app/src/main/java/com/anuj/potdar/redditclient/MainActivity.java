@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainNavigation {
 
             @Override
             public void onFailure(Call<Feed> call, Throwable t) {
-                final Snackbar mSnackbar = Snackbar.make(binding.parentFrameLayout, "Unable to connect", Snackbar.LENGTH_INDEFINITE)
+                final Snackbar mSnackbar = Snackbar.make(binding.parentFrameLayout, getBaseContext().getString(R.string.no_internet), Snackbar.LENGTH_INDEFINITE)
                         .setAction("RETRY", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

@@ -11,11 +11,11 @@
 
         <ImageView
             android:background="@drawable/user_profile_image_background"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="#000000"
             android:src="@drawable/reddit"
             android:layout_centerInParent="true"
             android:layout_width="200dp"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"/>
 
         <ProgressBar
             android:layout_marginBottom="20dp"

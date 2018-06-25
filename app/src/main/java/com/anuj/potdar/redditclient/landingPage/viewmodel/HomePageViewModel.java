@@ -4,7 +4,10 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.anuj.potdar.redditclient.APIInterface;
 import com.anuj.potdar.redditclient.FeedAdapter;
@@ -93,6 +96,30 @@ public class HomePageViewModel {
             }
         });
 
+        binding.searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                switch (i) {
+                    case EditorInfo.IME_ACTION_DONE:
+                        String query = binding.searchText.getText().toString();
+                        if(query!=null){
+                            if(!query.trim().equals("")){
+                                binding.swipeToRefresh.setRefreshing(true);
+                                downloadUserEnteredFeed(query);
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            return false;
+                        }
+                    default:
+                        return false;
+                }
+
+            }
+        });
+
     }
 
     private void downloadUserEnteredFeed(final String url) {
@@ -102,16 +129,25 @@ public class HomePageViewModel {
             public void onResponse(Call<Feed> call, Response<Feed> response) {
                 if(response!=null){
                     if(response.body()!=null){
+                        binding.errorView.setVisibility(View.GONE);
                         binding.progressBar.setVisibility(View.GONE);
                         binding.swipeToRefresh.setRefreshing(false);
                         hasSearched = true;
                         lastSearchedUrl = url;
                         Feed feed = response.body();
                         ArrayList<Child> children = (ArrayList<Child>)feed.getData().getChildren();
-                        feedAdapter = new FeedAdapter(children,context);
-                        binding.feedList.setAdapter(feedAdapter);
+                        if(children.size()==0){
+                            binding.feedList.setVisibility(View.GONE);
+                            binding.errorView.setVisibility(View.VISIBLE);
+                            binding.retry.setVisibility(View.GONE);
+                            binding.errorText.setText(context.getString(R.string.no_results));
+                        }else{
+                            feedAdapter = new FeedAdapter(children,context);
+                            binding.feedList.setAdapter(feedAdapter);
+                            binding.feedList.setVisibility(View.VISIBLE);
+                        }
                         binding.swipeToRefresh.setRefreshing(false);
-                        binding.feedList.setVisibility(View.VISIBLE);
+
                     }
 
                 }
@@ -125,6 +161,8 @@ public class HomePageViewModel {
                 binding.errorView.setVisibility(View.VISIBLE);
                 binding.swipeToRefresh.setRefreshing(false);
                 binding.feedList.setVisibility(View.GONE);
+                binding.retry.setVisibility(View.VISIBLE);
+                binding.errorText.setText(context.getString(R.string.no_internet));
             }
         });
     }
@@ -151,6 +189,7 @@ public class HomePageViewModel {
             @Override
             public void onResponse(Call<Feed> call, Response<Feed> response) {
                 if(response!=null){
+                    binding.errorView.setVisibility(View.GONE);
                     binding.progressBar.setVisibility(View.GONE);
                     binding.swipeToRefresh.setRefreshing(false);
                     hasSearched = false;
@@ -169,6 +208,8 @@ public class HomePageViewModel {
                 binding.progressBar.setVisibility(View.GONE);
                 binding.swipeToRefresh.setRefreshing(false);
                 binding.feedList.setVisibility(View.GONE);
+                binding.retry.setVisibility(View.VISIBLE);
+                binding.errorText.setText(context.getString(R.string.no_internet));
             }
         });
     }

@@ -3,5 +3,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="msg_exit">Do you want to exit the app?</string>
     <string name="maybe_later"><u>Maybe later</u></string>
-    <string name="no_internet">Could not connect to internet.</string>
+    <string name="no_internet">Could not connect to service.</string>
+    <string name="no_results">Could not find any results.</string>
 </resources>
